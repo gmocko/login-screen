@@ -13,7 +13,7 @@ const Button = styled.div`
   color: #fff;
   border-radius: 50px;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   box-shadow: 0 0 10px #1161ee;
 `
 
