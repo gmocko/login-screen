@@ -5,6 +5,6 @@ import { Form } from './ui/Form';
 
 export default withSiteData(() => (
   <div>
-    <Form />
+    <Form test="super" />
   </div>
 ))

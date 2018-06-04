@@ -18,7 +18,17 @@ const ContentWrapper = styled.div`
   height: 90%;
   display:flex;
   flex-direction: column;
-`
+`;
+
+const StatusMessageHolder = styled.div`
+  background-color: #1160ef;
+  box-shadow: 0 0 10px #1161ee;
+  color: #fff;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+`;
+
 const Cards = styled.div`
   display:flex;
   width: 100%;
@@ -51,14 +61,15 @@ const Caption = styled.div`
 
 const Input = styled.input`
   background-color: rgba(255,255,255, 0.1);
-  height: 5vh;
+  
   border-radius: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
   color: #fff;
   font-size: 1rem;
-  padding-left: 20px;
-  border: none;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  transition: .33s all;
   &:focus {
     outline: none;
   }
@@ -107,36 +118,101 @@ const Forgot = styled.div`
     }
   }
 `
- 
 
+const InputHolder = styled.div``;
 
-export const Form = () => (
-  <Holder>
-    <ContentWrapper>
-      <Cards>
-        <CardElement>SIGN IN</CardElement>
-        <CardElement>SIGN UP</CardElement>
-      </Cards>
+const InputWithLabel = (props) => {
+  const { label, isPassword, value, onChange, isValid = false } = props;
+  
+  const finalLabel = label.toUpperCase();
+  const finalType = isPassword ? 'password' : 'text';
+
+  const inputBorderColor = isValid ? 'green' : 'transparent';
+
+  return (
+    <InputHolder>
       <Caption>
-        <p>USERNAME</p>
+        <p>{finalLabel}</p>
       </Caption>
-      <Input type = "text"/>
-      <Caption>
-        <p>PASSWORD</p>
-      </Caption>
-      <Input type = "password" name="password"/>
-      <CheckboxLabel>
-        <Input type ="checkbox" name = "Keep Me singed in" value = ""/>
-        <Label htmlFor="">Keep Me singed in</Label>
-      </CheckboxLabel>
-      <Button>SIGN IN</Button>
-      <Forgot>
-        <div>
-        </div>
-        <div>
-          <p>Forgot Password?</p>
-        </div>    
-      </Forgot>
-    </ContentWrapper>
-  </Holder>
-)
+      <Input type={finalType} value={value} onChange={onChange} style={{borderColor: inputBorderColor}} />
+    </InputHolder>
+  )
+}
+
+function isValidEmail(email) {
+  const regex = /.+@.+\..{2,6}/i;
+  return regex.test(email);
+}
+
+function isValidPassword(password) {
+  return password.length > 6;
+}
+
+export class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      isSent: false,
+      errorMessage: null,
+    };
+  }
+
+  handleEmailChange = event => {
+    const { target: { value }} = event;
+
+    if (value.length === 0 || isValidEmail(value)) {
+      this.setState({errorMessage: null});
+    }
+    this.setState({ email: value });
+  }
+
+  handlePasswordChange = event => {
+    this.setState({ password: event.target.value});
+  }
+
+  handleSubmit = event => {
+    const { email, password } = this.state;
+    if (!isValidEmail(email)) {
+      this.setState({errorMessage:'Email incorrect'});
+      return;
+    }
+
+    this.setState({isSent: true, email: '', password: '', errorMessage: null});
+  }
+
+  render() {
+    const { email, password, isSent, errorMessage } = this.state; // https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Operatory/Destructuring_assignment
+    
+    const isOurSuperEmailOk = isValidEmail(email);
+    const isPasswordValid = isValidPassword(password);
+
+    return (
+      <Holder>
+        <ContentWrapper>
+          <Cards>
+            <CardElement>SIGN IN</CardElement>
+            <CardElement>SIGN UP</CardElement>
+          </Cards>
+          {errorMessage && <StatusMessageHolder>{errorMessage}</StatusMessageHolder>}
+          {isSent && <StatusMessageHolder>Login was successful</StatusMessageHolder>}
+          <InputWithLabel label="Email" isValid={isOurSuperEmailOk} value={email} onChange={this.handleEmailChange} />
+          <InputWithLabel label="Password" isValid={isPasswordValid} isPassword value={password} onChange={this.handlePasswordChange} />
+          <CheckboxLabel>
+            <Input type="checkbox" name="Keep Me singed in" value="" />
+            <Label htmlFor="">Keep Me singed in</Label>
+          </CheckboxLabel>
+          <Button onClick={this.handleSubmit}>SIGN IN</Button>
+          <Forgot>
+            <div>
+            </div>
+            <div>
+              <p>Forgot Password?</p>
+            </div>
+          </Forgot>
+        </ContentWrapper>
+      </Holder>
+    )
+  }
+}
