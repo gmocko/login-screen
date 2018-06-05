@@ -29,6 +29,14 @@ const StatusMessageHolder = styled.div`
   margin-bottom: 20px;
   border-radius: 10px;
 `;
+const StatusMessageHolderSend = styled.div`
+  background-color: #198C19;
+  box-shadow: 0 0 10px #198C19;
+  color: #fff;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+`;
 
 const Cards = styled.div`
   display:flex;
@@ -142,7 +150,7 @@ export class Form extends React.Component {
             <CardElement>SIGN IN</CardElement>
           </Cards>
           {errorMessage && <StatusMessageHolder>{errorMessage}</StatusMessageHolder>}
-          {isSent && <StatusMessageHolder>Login was successful</StatusMessageHolder>}
+          {isSent && <StatusMessageHolderSend>Login was successful</StatusMessageHolderSend>}
           <InputWithLabel label="Email" isValid={isOurSuperEmailOk} value={email} onChange={this.handleEmailChange} />
           <InputWithLabel label="Password" isValid={isPasswordValid} isPassword value={password} onChange={this.handlePasswordChange} />
           <CheckboxLabel>

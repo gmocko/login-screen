@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InputHolder = styled.div``;
+const InputHolder = styled.div`
+  display:flex;
+  flex-direction: column;
+`;
 
 export const Input = styled.input`
   background-color: rgba(255,255,255, 0.1);
-  
   border-radius: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
