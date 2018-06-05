@@ -13,7 +13,7 @@ const Holder = styled.div`
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(to left bottom, #313869, #333160, #342a57, #34244d, #331d44);
-`
+`;
 const ContentWrapper = styled.div`
   width: 90%;
   height: 90%;
@@ -22,8 +22,8 @@ const ContentWrapper = styled.div`
 `;
 
 const StatusMessageHolder = styled.div`
-  background-color: #1160ef;
-  box-shadow: 0 0 10px #1161ee;
+  background-color: #ee0001;
+  box-shadow: 0 0 10px #ee0001;
   color: #fff;
   padding: 15px 20px;
   margin-bottom: 20px;
@@ -38,7 +38,7 @@ const Cards = styled.div`
   padding-bottom: 10%;
   justify-content: flex-start;
   align-items: flex-end;
-`
+`;
 const CardElement = styled.div`
   display:flex;
   min-width: 20px;
@@ -48,8 +48,7 @@ const CardElement = styled.div`
   border-bottom: 2px solid #1161ee;
   font-size: 1.2rem;
   margin-left: 20px;
-  
-`
+`;
 
 
 const CheckboxLabel = styled.div`
@@ -57,12 +56,11 @@ const CheckboxLabel = styled.div`
   align-items: center;
   margin: 10px;
   padding-left: 10px;
-`
+`;
 const Label = styled.label`
   color: #fff;
   padding-left: 5px;
-  
-`
+`;
 
 const Button = styled.div`
   background-color: #1161ee;
@@ -76,7 +74,7 @@ const Button = styled.div`
     padding-left: 20px;
     padding-right: 20px;
   }
-`
+`;
 const Forgot = styled.div`
   display:flex;
   height: 20%;
@@ -95,7 +93,7 @@ const Forgot = styled.div`
       color: #747687;
     }
   }
-`
+`;
 
 export class Form extends React.Component {
   constructor(props) {
@@ -142,7 +140,6 @@ export class Form extends React.Component {
         <ContentWrapper>
           <Cards>
             <CardElement>SIGN IN</CardElement>
-            <CardElement>SIGN UP</CardElement>
           </Cards>
           {errorMessage && <StatusMessageHolder>{errorMessage}</StatusMessageHolder>}
           {isSent && <StatusMessageHolder>Login was successful</StatusMessageHolder>}
